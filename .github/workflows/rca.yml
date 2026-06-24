@@ -21,13 +21,22 @@ jobs:
         run: npm install
 
       - name: Run tests and save logs
-        run: npm test 2>&1 | tee logs.txt
+        id: run_tests
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee logs.txt
 
       - name: Upload build logs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-logs
           path: logs.txt
+
+      - name: Fail build on test failure
+        if: ${{ steps.run_tests.conclusion == 'failure' }}
+        run: exit 1
 
   rca:
     needs: build
