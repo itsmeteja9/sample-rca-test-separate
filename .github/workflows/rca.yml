@@ -41,7 +41,7 @@ jobs:
   rca:
     needs: build
     if: failure()
-    uses: itsmeteja9/Agent-POC/.github/workflows/rca-reusable.yml@eab371d
+    uses: itsmeteja9/Agent-POC/.github/workflows/rca-reusable.yml@05b1872
     with:
       tool_repo: itsmeteja9/Agent-POC
       log_file: logs.txt
