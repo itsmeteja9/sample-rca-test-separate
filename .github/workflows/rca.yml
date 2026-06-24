@@ -23,6 +23,12 @@ jobs:
       - name: Run tests and save logs
         run: npm test 2>&1 | tee logs.txt
 
+      - name: Upload build logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: logs.txt
+
   rca:
     needs: build
     if: failure()
@@ -30,5 +36,6 @@ jobs:
     with:
       tool_repo: itsmeteja9/Agent-POC
       log_file: logs.txt
+      log_artifact_name: build-logs
       artifact_name: rca-report
       python_version: '3.10'
