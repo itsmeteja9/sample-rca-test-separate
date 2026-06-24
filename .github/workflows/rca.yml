@@ -41,10 +41,11 @@ jobs:
   rca:
     needs: build
     if: failure()
-    uses: itsmeteja9/Agent-POC/.github/workflows/rca-reusable.yml@a8ce8294e25baf24ae6aa1a643183279333b5c22
+    uses: itsmeteja9/Agent-POC/.github/workflows/rca-reusable.yml@eab371d
     with:
       tool_repo: itsmeteja9/Agent-POC
       log_file: logs.txt
       log_artifact_name: build-logs
+      caller_run_id: ${{ github.run_id }}
       artifact_name: rca-report
       python_version: '3.10'
